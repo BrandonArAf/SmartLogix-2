@@ -1,6 +1,7 @@
 package com.smartlogix.bff.client;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +14,7 @@ import java.util.Map;
  * Cliente HTTP para el Microservicio de Pedidos.
  * Patron Circuit Breaker aplicado para tolerancia a fallos.
  */
+@Slf4j
 @Component
 public class PedidosClient {
 
@@ -42,7 +44,7 @@ public class PedidosClient {
 
     // Fallbacks
     public List<Map<String, Object>> fallbackGetPedidos(Exception ex) {
-        System.out.println("Circuit Breaker activado para pedidos: " + ex.getMessage());
+        log.warn("Circuit Breaker activado para pedidos: {}", ex.getMessage());
         return Collections.singletonList(
                 Map.of("error", "Servicio de pedidos temporalmente no disponible",
                         "mensaje", "Por favor intente en unos momentos")

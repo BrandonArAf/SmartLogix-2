@@ -72,6 +72,7 @@ class PedidosServiceTest {
         Optional<Pedido> resultado = pedidosService.cambiarEstado(1L, EstadoPedido.CONFIRMADO);
 
         assertTrue(resultado.isPresent());
+        assertEquals(EstadoPedido.CONFIRMADO, resultado.get().getEstado());
         verify(pedidoRepository).save(any(Pedido.class));
     }
 

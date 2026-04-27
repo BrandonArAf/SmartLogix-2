@@ -1,6 +1,7 @@
 package com.smartlogix.bff.client;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -14,6 +15,7 @@ import java.util.Map;
  * Implementa el patron Circuit Breaker con Resilience4j para manejar
  * caidas del microservicio sin afectar al BFF ni al frontend.
  */
+@Slf4j
 @Component
 public class InventarioClient {
 
@@ -56,7 +58,7 @@ public class InventarioClient {
      * o cuando ocurre una excepcion en el microservicio de inventario.
      */
     public List<Map<String, Object>> fallbackGetProductos(Exception ex) {
-        System.out.println("Circuit Breaker activado para inventario: " + ex.getMessage());
+        log.warn("Circuit Breaker activado para inventario: {}", ex.getMessage());
         return Collections.singletonList(
                 Map.of("error", "Servicio de inventario temporalmente no disponible",
                         "mensaje", "Por favor intente en unos momentos")

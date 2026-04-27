@@ -82,7 +82,7 @@ public class InventarioService {
     }
 
     public List<Producto> obtenerConStockBajo() {
-        return productoRepository.findProductosConStockBajo();
+        return productoRepository.findProductosConStockBajo(EstadoProducto.ACTIVO);
     }
 
     public List<Producto> buscarPorNombre(String nombre) {

@@ -29,8 +29,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     Optional<Producto> findByCodigoSku(String codigoSku);
 
     // Productos con stock bajo (menor al minimo definido)
-    @Query("SELECT p FROM Producto p WHERE p.stock <= p.stockMinimo AND p.estado = 'ACTIVO'")
-    List<Producto> findProductosConStockBajo();
+    @Query("SELECT p FROM Producto p WHERE p.stock <= p.stockMinimo AND p.estado = :estado")
+    List<Producto> findProductosConStockBajo(@Param("estado") EstadoProducto estado);
 
     // Busqueda por nombre (LIKE)
     @Query("SELECT p FROM Producto p WHERE LOWER(p.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))")

@@ -4,16 +4,14 @@ import com.smartlogix.pedidos.entity.Pedido;
 import com.smartlogix.pedidos.entity.Pedido.TipoPedido;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Implementaciones concretas del patron Factory Method.
- * Cada clase crea un tipo especifico de Pedido con sus propias reglas.
+ * Cada clase crea un tipo especifico de Pedido con sus propias reglas de negocio.
+ * Extienden PedidoCreadorBase para reutilizar la generacion del numero de pedido.
  */
 
 @Component
-class PedidoEstandarCreador implements PedidoCreador {
+class PedidoEstandarCreador extends PedidoCreadorBase {
 
     @Override
     public Pedido crearPedido(Long clienteId, String nombreCliente, String direccionEnvio) {
@@ -32,14 +30,10 @@ class PedidoEstandarCreador implements PedidoCreador {
     public TipoPedido getTipoPedido() {
         return TipoPedido.ESTANDAR;
     }
-
-    private String generarNumero(String prefijo) {
-        return prefijo + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-    }
 }
 
 @Component
-class PedidoExpressCreador implements PedidoCreador {
+class PedidoExpressCreador extends PedidoCreadorBase {
 
     @Override
     public Pedido crearPedido(Long clienteId, String nombreCliente, String direccionEnvio) {
@@ -59,14 +53,10 @@ class PedidoExpressCreador implements PedidoCreador {
     public TipoPedido getTipoPedido() {
         return TipoPedido.EXPRESS;
     }
-
-    private String generarNumero(String prefijo) {
-        return prefijo + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-    }
 }
 
 @Component
-class PedidoMayoristaCreador implements PedidoCreador {
+class PedidoMayoristaCreador extends PedidoCreadorBase {
 
     @Override
     public Pedido crearPedido(Long clienteId, String nombreCliente, String direccionEnvio) {
@@ -85,9 +75,5 @@ class PedidoMayoristaCreador implements PedidoCreador {
     @Override
     public TipoPedido getTipoPedido() {
         return TipoPedido.MAYORISTA;
-    }
-
-    private String generarNumero(String prefijo) {
-        return prefijo + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
     }
 }
