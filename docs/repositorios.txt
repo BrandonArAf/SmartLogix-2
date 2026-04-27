@@ -1,0 +1,50 @@
+REPOSITORIOS DEL PROYECTO - SMARTLOGIX
+Parcial N°2 | DSY1106 Desarrollo Fullstack III | DuocUC
+=====================================================
+
+REPOSITORIO PRINCIPAL
+  URL: https://github.com/equipo/smartlogix
+  Descripción: Repositorio raíz del proyecto SmartLogix. Contiene la documentación
+               general, diagramas de arquitectura y el archivo de repositorios.
+
+-----------------------------------------------------
+
+COMPONENTES BACKEND
+
+1. BFF (Backend For Frontend)
+   URL: https://github.com/equipo/smartlogix-bff
+   Puerto: 8080
+   Descripción: Componente que agrega y adapta las respuestas de los microservicios
+               para el frontend. Implementa Circuit Breaker con Resilience4j para
+               manejar caídas de los microservicios sin afectar la experiencia del usuario.
+
+2. Microservicio de Inventario
+   URL: https://github.com/equipo/ms-inventario
+   Puerto: 8081
+   BD: smartlogix_inventario (MySQL - XAMPP)
+   Descripción: Gestiona el stock de productos. Implementa Repository Pattern con
+               Spring Data JPA. Incluye endpoints para gestión de stock, alertas
+               de stock bajo y búsqueda de productos.
+
+3. Microservicio de Pedidos
+   URL: https://github.com/equipo/ms-pedidos
+   Puerto: 8082
+   BD: smartlogix_pedidos (MySQL - XAMPP)
+   Descripción: Gestiona el ciclo de vida de los pedidos. Implementa Factory Method
+               para crear distintos tipos de pedido (ESTANDAR, EXPRESS, MAYORISTA)
+               con sus propias reglas de negocio. Repository Pattern para persistencia.
+
+-----------------------------------------------------
+
+FRONTEND
+
+4. SmartLogix Frontend
+   URL: https://github.com/equipo/smartlogix-frontend
+   Puerto: 3000
+   Descripción: Aplicación React empaquetada como módulo NPM. Incluye paneles de
+               gestión de inventario y pedidos con comunicación vía REST al BFF.
+
+=====================================================
+Estrategia de branching: Git Flow
+Rama principal: main | Integración: develop
+Tags de entrega: v1.0.0 (Parcial N°2)
